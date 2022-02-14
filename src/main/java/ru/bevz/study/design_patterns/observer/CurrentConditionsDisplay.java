@@ -1,22 +1,39 @@
 package ru.bevz.study.design_patterns.observer;
 
-public class CurrentConditionsDisplay implements  Observer, DisplayElement{
+
+public class CurrentConditionsDisplay implements Observer, DisplayElement {
+    private final WeatherData weatherData;
     private float temperature;
     private float humidity;
-    private Subject weatherData;
 
-    public CurrentConditionsDisplay(Subject weatherData) {
-        this.weatherData =  weatherData;
-        weatherData.registerObserver(this);
+    public CurrentConditionsDisplay(WeatherData weatherData) {
+        this.weatherData = weatherData;
+        weatherData.getWeatherDataSubject().addObserver(this);
     }
 
     @Override
     public void display() {
-
+        System.out.println("########\n" + this + "\n########");
     }
 
     @Override
-    public void update(float temp, float humidity, float pressure) {
+    public String toString() {
+        return "CurrentConditionsDisplay{" +
+                "temperature=" + temperature +
+                ", humidity=" + humidity +
+                '}';
+    }
 
+    @Override
+    public void update(Source source) {
+        // mapper imitation
+        WeatherData weatherData = (WeatherData) source;
+        this.temperature = weatherData.getTemperature();
+        this.humidity = weatherData.getHumidity();
+        display();
+    }
+
+    public WeatherData getWeatherData() {
+        return weatherData;
     }
 }
