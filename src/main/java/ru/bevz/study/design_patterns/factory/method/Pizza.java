@@ -1,7 +1,6 @@
 package ru.bevz.study.design_patterns.factory.method;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public abstract class Pizza {
